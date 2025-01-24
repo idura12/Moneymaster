@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Money Master</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Reset styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* General Styles */
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to bottom, #2a5298, #1e3c72);
+      color: #fff;
+      transition: background 0.3s, color 0.3s;
+      overflow-x: hidden;
+    }
+
+    /* Header Styles */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 10;
+      box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(10px);
+    }
+
+    header img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 2px solid white;
+    }
+
+    header h1 {
+      font-size: 24px;
+      margin-left: 10px;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 10px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      font-size: 16px;
+      color: #fff;
+      padding: 5px 10px;
+      border-radius: 5px;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    nav ul li a:hover {
+      background: #00d4ff;
+      color: #000;
+    }
+
+    .mode-button {
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    /* Section: Home */
+    #home {
+      text-align: center;
+      margin-top: 80px;
+      padding: 30px;
+      background-image: url('assets/background.jpg');
+      background-size: cover;
+      background-position: center top;
+      height: 70vh;
+      background-repeat: no-repeat;
+      background-color: #333;
+    }
+
+    #home h1 {
+      font-size: 40px;
+      color: #ffd700;
+    }
+
+    #home p {
+      font-size: 18px;
+      margin-top: 5px;
+    }
+
+    #home button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background: #00d4ff;
+      border: none;
+      color: #fff;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #home button:hover {
+      background: #ff6f61;
+    }
+
+    /* Category Section */
+    .category-menu {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      padding: 20px;
+      margin-top: 20px;
+    }
+
+    .category {
+      background: #00d4ff;
+      padding: 20px;
+      margin: 10px;
+      width: 160px;
+      height: 160px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      color: white;
+      text-align: center;
+      font-size: 16px;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .category:hover {
+      transform: scale(1.1);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .category img {
+      width: 100%;
+      height: 80%;
+      border-radius: 10px;
+    }
+
+    .category h3 {
+      margin-top: 5px;
+    }
+
+    /* Dark Mode Styles */
+    body.dark-mode {
+      background: #121212;
+      color: #e0e0e0;
+    }
+
+    header.dark-mode {
+      background: rgba(0, 0, 0, 0.8);
+    }
+
+    #home.dark-mode {
+      background-image: url('assets/dark-background.jpg');
+    }
+
+    .mode-button.dark-mode {
+      color: #ffeb3b;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 10px;
+      background-color: #333;
+      color: #fff;
+      font-size: 12px;
+      margin-top: 20px;
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      nav ul {
+        flex-direction: column;
+      }
+
+      .category-menu {
+        flex-direction: column;
+      }
+
+      .category {
+        width: 90%;
+        height: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div style="display: flex; align-items: center;">
+      <img src="assets/channels4_profile.jpg" alt="Logo">
+      <h1>Money Master</h1>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#categories">Categories</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <button id="mode-toggle" class="mode-button">🌙</button>
+  </header>
+
+  <section id="home">
+    <h1>Welcome to Money Master</h1>
+    <p>Your financial journey starts here</p>
+  </section>
+
+  <section id="categories" class="category-menu">
+    <!-- Categories -->
+    <div class="category" onclick="location.href='pages/movies.html'">
+      <img src="assets/movies.jpg" alt="Movies & TV">
+      <h3>Movies & TV</h3>
+    </div>
+    <div class="category" onclick="location.href='pages/games.html'">
+      <img src="assets/Games.jpg" alt="Games">
+      <h3>Games</h3>
+    </div>
+    <div class="category" onclick="location.href='pages/clothing.html'">
+      <img src="assets/clothing.jpg" alt="Clothing">
+      <h3>Clothing</h3>
+    </div>
+    <div class="category" onclick="location.href='pages/weather.html'">
+      <img src="assets/wether.jpg" alt="Weather">
+      <h3>Weather</h3>
+    </div>
+    <div class="category" onclick="location.href='pages/softwares.html'">
+      <img src="assets/Softwared.jpg" alt="Software">
+      <h3>Softwares</h3>
+    </div>
+    <div class="category" onclick="location.href='pages/songs.html'">
+      <img src="assets/song.jpg" alt="Songs">
+      <h3>Songs</h3>
+    </div>
+    <div class="category" onclick="location.href='pages/news.html'">
+      <img src="assets/News.jpg" alt="Best News">
+      <h3>Best News</h3>
+    </div>
+    <div class="category" onclick="location.href='calculator.html'">
+      <img src="assets/cal.jpg" alt="Calculator">
+      <h3>Calculator</h3>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Money Master Web | All Rights Reserved</p>
+  </footer>
+
+  <script>
+    // Smooth scroll effect for navigation links
+    document.querySelectorAll('nav ul li a').forEach(link => {
+      link.addEventListener('click', event => {
+        event.preventDefault();
+        const targetId = link.getAttribute('href').substring(1);
+        document.getElementById(targetId).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    // Dark/Light mode toggle functionality
+    const modeToggleButton = document.getElementById('mode-toggle');
+    const body = document.body;
+
+    if(localStorage.getItem('mode') === 'dark') {
+      body.classList.add('dark-mode');
+      modeToggleButton.textContent = '🌞'; // Set button text to sun for dark mode
+    }
+
+    modeToggleButton.addEventListener('click', () => {
+      body.classList.toggle('dark-mode');
+      if(body.classList.contains('dark-mode')) {
+        localStorage.setItem('mode', 'dark');
+        modeToggleButton.textContent = '🌞'; // Sun icon for dark mode
+      } else {
+        localStorage.setItem('mode', 'light');
+        modeToggleButton.textContent = '🌙'; // Moon icon for light mode
+      }
+    });
+  </script>
+</body>
+</html>

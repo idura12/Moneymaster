@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Money Master - Advanced Calculator</title>
+  <style>
+    /* Reset Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f7fa;
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    header {
+      background-color: #FF6F61;
+      color: white;
+      width: 100%;
+      text-align: center;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    header h1 {
+      font-size: 40px;
+      letter-spacing: 1px;
+    }
+
+    nav ul {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    nav ul li {
+      list-style: none;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-size: 18px;
+    }
+
+    /* Dark/Light mode toggle */
+    .mode-button {
+      background-color: transparent;
+      border: none;
+      font-size: 25px;
+      cursor: pointer;
+      color: white;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .mode-button:hover {
+      color: #FFEB3B;
+    }
+
+    .calculator-container {
+      background-color: #FFFFFF;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 320px;
+      margin-top: 30px;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .calculator-container h2 {
+      font-size: 30px;
+      margin-bottom: 20px;
+      color: #FF6F61;
+    }
+
+    input[type="number"] {
+      width: 90%;
+      padding: 15px;
+      margin: 15px 0;
+      font-size: 20px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      transition: all 0.3s;
+    }
+
+    input[type="number"]:focus {
+      border-color: #FF6F61;
+      box-shadow: 0 0 10px rgba(255, 111, 97, 0.5);
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .calc-btn {
+      padding: 15px;
+      font-size: 18px;
+      border: none;
+      background-color: #FF6F61;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .calc-btn:hover {
+      background-color: #FF3B30;
+    }
+
+    .result {
+      font-size: 22px;
+      font-weight: bold;
+      margin-top: 20px;
+      color: #FF6F61;
+    }
+
+    /* Dark Mode */
+    body.dark-mode {
+      background-color: #1e1e1e;
+      color: white;
+    }
+
+    body.dark-mode .calculator-container {
+      background-color: #333;
+    }
+
+    body.dark-mode .mode-button {
+      color: #FFEB3B;
+    }
+
+    body.dark-mode .calc-btn {
+      background-color: #FF6F61;
+    }
+
+    body.dark-mode .calc-btn:hover {
+      background-color: #FF3B30;
+    }
+
+    /* Animation */
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div style="display: flex; align-items: center; justify-content: center;">
+      <img src="assets/channels4_profile.jpg" alt="Logo" width="50">
+      <h1>Money Master Web</h1>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#categories">Categories</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <button id="mode-toggle" class="mode-button">🌙</button>
+  </header>
+  
+  <section id="calculator">
+    <div class="calculator-container">
+      <h2>Advanced Calculator</h2>
+      <div class="basic-calculator">
+        <input type="number" id="basic-num1" placeholder="Enter first number">
+        <input type="number" id="basic-num2" placeholder="Enter second number">
+        <div class="buttons">
+          <button id="basic-add" class="calc-btn">+</button>
+          <button id="basic-sub" class="calc-btn">-</button>
+          <button id="basic-mul" class="calc-btn">*</button>
+          <button id="basic-div" class="calc-btn">/</button>
+        </div>
+        <div class="result" id="basic-result"></div>
+      </div>
+
+      <!-- Linear Equation -->
+      <input type="number" id="linear-x" placeholder="Enter x for 6x + 5 = 14">
+      <button id="solveLinear" class="calc-btn">Solve Linear Equation</button>
+
+      <!-- Polynomial -->
+      <input type="number" id="polynomial-x" placeholder="Enter x for (x+5)(x+2)">
+      <button id="solvePolynomial" class="calc-btn">Solve Polynomial</button>
+
+      <!-- Quadratic Equation -->
+      <input type="number" id="quadratic-x" placeholder="Enter x for 4x² - 5x - 12 = 0">
+      <button id="solveQuadratic" class="calc-btn">Solve Quadratic Equation</button>
+
+      <div class="result" id="result"></div>
+    </div>
+  </section>
+
+  <script>
+    // Dark/Light mode toggle functionality
+    const modeToggleButton = document.getElementById('mode-toggle');
+    const body = document.body;
+
+    if(localStorage.getItem('mode') === 'dark') {
+      body.classList.add('dark-mode');
+      modeToggleButton.textContent = '🌞';
+    }
+
+    modeToggleButton.addEventListener('click', () => {
+      body.classList.toggle('dark-mode');
+      if(body.classList.contains('dark-mode')) {
+        localStorage.setItem('mode', 'dark');
+        modeToggleButton.textContent = '🌞';
+      } else {
+        localStorage.setItem('mode', 'light');
+        modeToggleButton.textContent = '🌙';
+      }
+    });
+
+    // Basic calculator functionality
+    document.getElementById('basic-add').addEventListener('click', function() {
+      const num1 = parseFloat(document.getElementById('basic-num1').value);
+      const num2 = parseFloat(document.getElementById('basic-num2').value);
+      if (!isNaN(num1) && !isNaN(num2)) {
+        document.getElementById('basic-result').textContent = `Result: ${num1 + num2}`;
+      } else {
+        document.getElementById('basic-result').textContent = "Please enter valid numbers.";
+      }
+    });
+
+    document.getElementById('basic-sub').addEventListener('click', function() {
+      const num1 = parseFloat(document.getElementById('basic-num1').value);
+      const num2 = parseFloat(document.getElementById('basic-num2').value);
+      if (!isNaN(num1) && !isNaN(num2)) {
+        document.getElementById('basic-result').textContent = `Result: ${num1 - num2}`;
+      } else {
+        document.getElementById('basic-result').textContent = "Please enter valid numbers.";
+      }
+    });
+
+    document.getElementById('basic-mul').addEventListener('click', function() {
+      const num1 = parseFloat(document.getElementById('basic-num1').value);
+      const num2 = parseFloat(document.getElementById('basic-num2').value);
+      if (!isNaN(num1) && !isNaN(num2)) {
+        document.getElementById('basic-result').textContent = `Result: ${num1 * num2}`;
+      } else {
+        document.getElementById('basic-result').textContent = "Please enter valid numbers.";
+      }
+    });
+
+    document.getElementById('basic-div').addEventListener('click', function() {
+      const num1 = parseFloat(document.getElementById('basic-num1').value);
+      const num2 = parseFloat(document.getElementById('basic-num2').value);
+      if (!isNaN(num1) && !isNaN(num2)) {
+        if (num2 !== 0) {
+          document.getElementById('basic-result').textContent = `Result: ${num1 / num2}`;
+        } else {
+          document.getElementById('basic-result').textContent = "Cannot divide by zero.";
+        }
+      } else {
+        document.getElementById('basic-result').textContent = "Please enter valid numbers.";
+      }
+    });
+
+    // Solve Linear Equation
+    document.getElementById('solveLinear').addEventListener('click', function() {
+      const x = parseFloat(document.getElementById('linear-x').value);
+      if (!isNaN(x)) {
+        const result = (14 - 5) / 6;
+        document.getElementById('result').textContent = `x = ${result}`;
+      } else {
+        document.getElementById('result').textContent = "Please enter a valid number.";
+      }
+    });
+
+    // Solve Polynomial Equation
+    document.getElementById('solvePolynomial').addEventListener('click', function() {
+      const x = parseFloat(document.getElementById('polynomial-x').value);
+      if (!isNaN(x)) {
+        const result = (x + 5) * (x + 2);
+        document.getElementById('result').textContent = `Result: ${result}`;
+      } else {
+        document.getElementById('result').textContent = "Please enter a valid number.";
+      }
+    });
+
+    // Solve Quadratic Equation
+    document.getElementById('solveQuadratic').addEventListener('click', function() {
+      const x = parseFloat(document.getElementById('quadratic-x').value);
+      if (!isNaN(x)) {
+        const result = 4 * Math.pow(x, 2) - 5 * x - 12;
+        document.getElementById('result').textContent = `Result: ${result}`;
+      } else {
+        document.getElementById('result').textContent = "Please enter a valid number.";
+      }
+    });
+  </script>
+</body>
+</html>
